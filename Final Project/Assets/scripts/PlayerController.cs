@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     private Animator animator;
     private Rigidbody rb;
+    private BoxCollider collider;
     private int mode;
     private int stand = 0;
     private int move = 1;
@@ -13,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private int jumping = 3;
     private int attackOverride = 0;
     private string input = "";
-    public float speed, lean, jumpForce, runForce;
+    public float speed, lean, jumpForce, runForce, landOffset;
     public int direction; // -1 for left, 1 for right
     public Vector3 standCenter;// = new Vector3((float)-.2, (float)-.4, 0);
     public Vector3 standSize;// = new Vector3((float)1.3, (float)4.3, (float).8);
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         animator = this.GetComponent<Animator>();
         rb = this.GetComponent<Rigidbody>();
+        collider = this.GetComponent<BoxCollider>();
     }
 
     // Update is called once per frame
@@ -66,16 +68,18 @@ public class PlayerController : MonoBehaviour
 
     void takeAir() {
         //add velocity
-        rb.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
-    }
-
-    void land() {
-        //finish animation
+        if (Physics.Raycast(transform.position, Vector3.down, landOffset)) {
+            rb.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
+        }
     }
 
     void stillInAir() {
-        //pause animation while in air, check if near ground
-        //call land if close to ground
+
+        if (Physics.Raycast(transform.position, Vector3.down, landOffset)) {
+            animator.enabled = true;
+        } else {
+            animator.enabled = false;
+        }
     }
 
     void idle()
