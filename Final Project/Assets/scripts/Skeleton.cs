@@ -36,26 +36,26 @@ public class Skeleton : MonoBehaviour {
 
 		if (!anim.GetBool("death"))
 			transform.position += new Vector3 (speed * Time.deltaTime, 0.0f, 0.0f);
+        else if (rig.velocity.Equals(new Vector3(0,0,0))) {
+            rig.detectCollisions = false;
+            rig.isKinematic = true;
+        }
 	}
 
-	void OnMouseDown(){
-		rig.AddForce (transform.TransformPoint(transform.right * 600));
-		rig.useGravity = true;
-        anim.SetBool("death", true);
-        anim.Play ("skel_collision");
-		//Destroy (gameObject,3);
-
-	}
+    public bool isDead() {
+        return anim.GetBool("death");
+    }
 
 	void OnCollisionEnter(Collision col){
-		if(col.gameObject.name == "Player" && !anim.GetBool("death")) {
+		if((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Fireball")) && !anim.GetBool("death")) {
 			rig.AddForce (transform.TransformPoint(transform.right * hitForce));
 			rig.useGravity = true;
             anim.SetBool("death", true);
+
             collider.size = alignSizeDeath;
             collider.center = alignCenterDeath;
             anim.Play ("skel_collision");
-		} else if (col.gameObject.name == "Player") {
+		} else if (col.gameObject.CompareTag("Player")) {
             rig.isKinematic = true;
             rig.detectCollisions = false;
         }
