@@ -30,10 +30,4 @@ public class FireballController : MonoBehaviour {
             Destroy(gameObject);
         }
 	}
-
-    void OnCollisionEnter(Collision col) {
-        if (col.gameObject.CompareTag("Skeleton") && !col.gameObject.GetComponent<Skeleton>().isDead()) {
-            Destroy(gameObject);
-        }
-    }
 }

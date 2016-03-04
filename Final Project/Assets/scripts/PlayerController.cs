@@ -10,10 +10,9 @@ public class PlayerController : MonoBehaviour
     private int stand = 0;
     private int move = 1;
     private int attack = 2;
-    private int jumping = 3;
     private int attackOverride = 0;
     private string input = "";
-    public float speed, lean, jumpForce, runForce;
+    public float speed, lean;
     public int direction; // -1 for left, 1 for right
     public Vector3 standCenter;// = new Vector3((float)-.2, (float)-.4, 0);
     public Vector3 standSize;// = new Vector3((float)1.3, (float)4.3, (float).8);
@@ -42,40 +41,11 @@ public class PlayerController : MonoBehaviour
         else if (mode == move)
         {
             run();
-        } else if (mode == jumping) 
-        {
-            jump();
         }
         else if (mode == stand)
         {
             idle();
         }
-    }
-
-    void jump() {
-        //if havent started jump yet, start animation
-        if (!animator.GetBool("Jumping")) {
-            animator.SetTrigger("Jump");
-        }
-
-        if (isPressingRunKeys()) {
-            run();
-        }
-
-    }
-
-    void takeAir() {
-        //add velocity
-        rb.AddForce(transform.up * jumpForce, ForceMode.VelocityChange);
-    }
-
-    void land() {
-        //finish animation
-    }
-
-    void stillInAir() {
-        //pause animation while in air, check if near ground
-        //call land if close to ground
     }
 
     void idle()
@@ -103,7 +73,7 @@ public class PlayerController : MonoBehaviour
     }
 
     //for moving player left or right
-    Vector3 moveHoriz(float horiz)
+    void moveHoriz(float horiz, Vector3 toMove)
     {
         if (!animator.GetBool("RunningLeftRight"))
         { //if not already running
@@ -113,8 +83,6 @@ public class PlayerController : MonoBehaviour
             bc.size = runSize;
         }
 
-        Vector3 ret;
-
         //if direction is not the same as horizontal input
         if ((direction < 0) != (horiz < 0))
         {
@@ -123,22 +91,25 @@ public class PlayerController : MonoBehaviour
 
         if (direction < 0)
         {
-            ret = Vector3.left * speed * Time.deltaTime;
-            //ret = Vector3.left;
+            //transform.Translate(Vector3.left * speed * Time.deltaTime, transform.parent);
+            //rb.AddForce(Vector3.left * speed * Time.deltaTime);
+            //rb.MovePosition(transform.position + (Vector3.left * speed * Time.deltaTime));
+            toMove += Vector3.left * speed * Time.deltaTime;
         }
         else {
-            ret = Vector3.right * speed * Time.deltaTime;
-            //ret = Vector3.right;
+            //transform.Translate(Vector3.right * speed * Time.deltaTime, transform.parent);
+            //rb.AddForce(Vector3.right * speed * Time.deltaTime);
+            toMove += Vector3.right * speed * Time.deltaTime;
         }
 
-        return ret;
+        rb.MovePosition(toMove);
     }
 
     //for moving player in and out
-    Vector3 moveInOut(float vert)
+    void moveInOut(float vert, float horiz)
     {
         if (!animator.GetBool("RunningLeftRight"))
-        {   //if not already running
+        { //if not already running
             animator.SetBool("RunningLeftRight", true);
 
             BoxCollider bc = GetComponent<BoxCollider>();
@@ -146,47 +117,49 @@ public class PlayerController : MonoBehaviour
             bc.size = runSize;
         }
 
-        Vector3 ret;
+        Vector3 toMove;
 
         //move in or out and rotate
         if (vert < 0)
         {
             this.transform.localEulerAngles = new Vector3((float)-lean, (float)0, (float)0);
-            ret = Vector3.back * speed * Time.deltaTime;
-            //ret = Vector3.back;
+            //transform.Translate(Vector3.back * speed * Time.deltaTime, transform.parent);
+            //rb.AddForce(Vector3.back * speed * Time.deltaTime);
+            toMove = transform.position + (Vector3.back * speed * Time.deltaTime);
         }
         else {
             this.transform.localEulerAngles = new Vector3((float)lean, (float)0, (float)0);
-            ret = Vector3.forward * speed * Time.deltaTime;
-            //ret = Vector3.forward;
+            //transform.Translate(Vector3.forward * speed * Time.deltaTime, transform.parent);
+            //rb.AddForce(Vector3.forward * speed * Time.deltaTime);
+            toMove = transform.position + (Vector3.forward * speed * Time.deltaTime);
         }
 
-        return ret;
+        //if also moving left or right
+        if (horiz != 0)
+        {
+            moveHoriz(horiz, toMove);
+        }
+        else {
+            rb.MovePosition(toMove);
+        }
     }
 
     void run()
     {
-        Vector3 toMove = transform.position;
-
         if (vert != 0)
-        {   //going in or out
-           toMove += moveInOut(vert);
-        } else {
+        { //going in or out
+            moveInOut(vert, horiz);
+        }
+        else if (horiz != 0)
+        { //going right or left
             this.transform.localEulerAngles = new Vector3((float)0, (float)0, (float)0);
+            moveHoriz(horiz, transform.position);
         }
-
-        if (horiz != 0)
-        {   //going right or left
-            toMove += moveHoriz(horiz);
-        }
-
-        //rb.AddForce(toMove * runForce, ForceMode.Impulse);
-        rb.MovePosition(toMove);
     }
 
     void executeMove(string input)
     {
-        //print("executing " + input);
+        print("executing " + input);
 
         if (input == "dr")
         {
@@ -195,11 +168,11 @@ public class PlayerController : MonoBehaviour
 
             Instantiate(fireball, spawnPos, transform.rotation);
 
-            //print("FIREBALL");
+            print("FIREBALL");
         }
         else
         {
-            //print("NOT A MOVE");
+            print("NOT A MOVE");
         }
     }
 
@@ -208,29 +181,29 @@ public class PlayerController : MonoBehaviour
         if (!animator.GetBool("SpecialAttack"))
         {
             animator.SetBool("SpecialAttack", true);
-            //print("starting attack animation");
+            print("starting attack animation");
             return;
         }
-        //print("checking attack input");
+        print("checking attack input");
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             input += "u";
-            //print(input);
+            print(input);
         } 
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             input += "d";
-            //print(input);
+            print(input);
         }    
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             input += "l";
-            //print(input);
+            print(input);
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             input += "r";
-            //print(input);
+            print(input);
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
@@ -239,58 +212,26 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("SpecialAttack", false);
             executeMove(input);
             input = "";
-            //print("ending attack");
+            print("ending attack");
         }
     }
 
     int getKey()
     {
-        //if starting special attack or already entering attack
         if (Input.GetKeyDown(KeyCode.Space) || attackOverride == 1)
         {
             attackOverride = 1;
-            //print("starting attack");
+            print("starting attack");
             return attack;
         }
-
-        //if starting jump or already jumping
-        if (Input.GetKeyDown(KeyCode.CapsLock) || animator.GetBool("Jumping")) {
-            return jumping;
-        }
-
-        //if trying to run
-        if ( isPressingRunKeys() && !animator.GetBool("Jumping"))
+        else if ((horiz = Input.GetAxis("Horizontal")) != 0 || (vert = Input.GetAxis("Vertical")) != 0)
         {
             return move;
         }
-
-        return stand;
-    }
-
-    bool isPressingRunKeys() {
-        bool ret = false;
-
-        if (Input.GetKey("w")) {
-            vert = 1;
-            ret = true;
-        } else if (Input.GetKey("s")) {
-            vert = -1;
-            ret = true;
-        } else {
-            vert = 0;
+        else
+        {
+            return stand;
         }
 
-        if (Input.GetKey("d")) {
-            horiz = 1;
-            ret = true;
-        } else if (Input.GetKey("a")) {
-            horiz = -1;
-            ret = true;
-        } else {
-            horiz = 0;
-        }
-
-        return ret;
     }
-
 }
