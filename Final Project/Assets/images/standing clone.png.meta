@@ -1,0 +1,155 @@
+fileFormatVersion: 2
+guid: 83d863ced4db9d24fb587c37c6b0977a
+timeCreated: 1456440154
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: standing clone_0
+    21300002: standing clone_1
+    21300004: standing clone_2
+    21300006: standing clone_3
+    21300008: standing clone_4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: standing clone_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -44, y: 135}
+        - {x: -61, y: 116}
+        - {x: -61, y: -142}
+        - {x: -38, y: -205}
+        - {x: 33, y: -205}
+        - {x: 33, y: 108}
+        - {x: 25, y: 135}
+    - name: standing clone_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -59.899994, y: 135}
+        - {x: -59.899994, y: -199}
+        - {x: -38.899994, y: -205}
+        - {x: 22.100006, y: -205}
+        - {x: 33.100006, y: -201}
+        - {x: 33.100006, y: 135}
+    - name: standing clone_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -60.799988, y: 135}
+        - {x: -60.799988, y: -177}
+        - {x: -35.799988, y: -205}
+        - {x: 31.200012, y: -205}
+        - {x: 33.200012, y: -192}
+        - {x: 33.200012, y: 135}
+    - name: standing clone_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 32.30005, y: 119}
+        - {x: 6.300049, y: 139}
+        - {x: -41.69995, y: 139}
+        - {x: -46.69995, y: 138}
+        - {x: -61.69995, y: 123}
+        - {x: -61.69995, y: -51}
+        - {x: -42.69995, y: -205}
+        - {x: 20.300049, y: -205}
+        - {x: 20.300049, y: -202}
+        - {x: 23.300049, y: -87}
+        - {x: 32.30005, y: -14}
+    - name: standing clone_4
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -52.599976, y: 135}
+        - {x: -60.599976, y: 132}
+        - {x: -60.599976, y: -67}
+        - {x: -33.599976, y: -205}
+        - {x: 27.400024, y: -205}
+        - {x: 33.400024, y: -123}
+        - {x: 33.400024, y: 117}
+        - {x: 28.400024, y: 135}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
