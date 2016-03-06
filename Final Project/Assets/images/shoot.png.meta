@@ -1,0 +1,156 @@
+fileFormatVersion: 2
+guid: 14444b4b8f9eb6b4d9722895206df433
+timeCreated: 1457235649
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: shoot_0
+    21300002: shoot_1
+    21300004: shoot_2
+    21300006: shoot_3
+    21300008: shoot_4
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: shoot_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -44, y: 135}
+        - {x: -61, y: 116}
+        - {x: -61, y: -142}
+        - {x: -38, y: -205}
+        - {x: 33, y: -205}
+        - {x: 33, y: 108}
+        - {x: 25, y: 135}
+    - name: shoot_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -75.899994, y: 127}
+        - {x: -83.899994, y: 118}
+        - {x: -83.899994, y: -205}
+        - {x: 50.100006, y: -205}
+        - {x: 50.100006, y: 127}
+    - name: shoot_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 75.20001, y: -63}
+        - {x: 53.200012, y: 135}
+        - {x: -98.79999, y: 135}
+        - {x: -98.79999, y: -205}
+        - {x: 12.200012, y: -205}
+        - {x: 76.20001, y: -172}
+        - {x: 78.20001, y: -169}
+        - {x: 78.20001, y: -163}
+        - {x: 77.20001, y: -160}
+    - name: shoot_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 72.30005, y: -201}
+        - {x: 71.30005, y: -199}
+        - {x: 54.30005, y: -138}
+        - {x: 39.30005, y: -126}
+        - {x: 141.30005, y: -39}
+        - {x: 141.30005, y: 68}
+        - {x: 111.30005, y: 115}
+        - {x: -35.69995, y: 115}
+        - {x: -126.69995, y: -189}
+        - {x: -126.69995, y: -205}
+        - {x: 72.30005, y: -205}
+    - name: shoot_4
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 61.400024, y: 135}
+        - {x: -60.599976, y: 135}
+        - {x: -60.599976, y: -205}
+        - {x: 40.400024, y: -205}
+        - {x: 28.400024, y: -135}
+        - {x: 67.400024, y: -64}
+        - {x: 67.400024, y: 79}
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

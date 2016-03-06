@@ -13,9 +13,11 @@ GameObject:
   - 54: {fileID: 5431512}
   - 65: {fileID: 6516798}
   - 114: {fileID: 11469078}
+  - 135: {fileID: 13575022}
+  - 65: {fileID: 6571716}
   m_Layer: 0
   m_Name: Skeleton
-  m_TagString: Skeleton
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +29,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.51, y: 3.65, z: -4.24}
+  m_LocalPosition: {x: 5.58, y: 1.67, z: -0.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -57,8 +59,20 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.458394, y: 3.341921, z: 0.8}
-  m_Center: {x: -0.04194927, y: -0.03480339, z: 0}
+  m_Size: {x: 1.875609, y: 1.819848, z: 0.8}
+  m_Center: {x: -0.006182134, y: -0.08588076, z: 0}
+--- !u!65 &6571716
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131790}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.4, y: 3.4, z: 0.2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &9574712
 Animator:
   serializedVersion: 3
@@ -87,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc4a5ada4cc019499370ccb53aabdaf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skel: {fileID: 458492}
   alignSizeDeath: {x: 1.875609, y: 1.819848, z: 0.8}
   alignCenterDeath: {x: -0.006182134, y: -0.08588076, z: 0}
   alignSizeWalking: {x: 1.458394, y: 3.341921, z: 0.8}
@@ -94,6 +109,20 @@ MonoBehaviour:
   speed: -3
   accel: 0
   hitForce: 700
+  zfollow: -0.1
+  health: 1
+--- !u!135 &13575022
+SphereCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131790}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &21224492
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -132,8 +161,33 @@ Prefab:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 0}
-      propertyPath: m_TagString
-      value: Skeleton
+      propertyPath: accel
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c0810b63013f03448a87d87fcec08cf6,
+        type: 3}
+    - target: {fileID: 0}
+      propertyPath: m_Radius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: zfollow
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: health
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: skel
+      value: 
+      objectReference: {fileID: 458492}
+    - target: {fileID: 0}
+      propertyPath: m_FlipX
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
