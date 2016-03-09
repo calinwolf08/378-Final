@@ -13,11 +13,11 @@ GameObject:
   - 54: {fileID: 5431512}
   - 65: {fileID: 6516798}
   - 114: {fileID: 11469078}
-  - 135: {fileID: 13575022}
-  - 65: {fileID: 6571716}
+  - 136: {fileID: 13601004}
+  - 135: {fileID: 13564818}
   m_Layer: 0
   m_Name: Skeleton
-  m_TagString: Untagged
+  m_TagString: Skeleton
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.58, y: 1.67, z: -0.67}
+  m_LocalPosition: {x: -14.86, y: 1.67, z: -0.67}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -61,18 +61,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.875609, y: 1.819848, z: 0.8}
   m_Center: {x: -0.006182134, y: -0.08588076, z: 0}
---- !u!65 &6571716
-BoxCollider:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 131790}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.4, y: 3.4, z: 0.2}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!95 &9574712
 Animator:
   serializedVersion: 3
@@ -82,7 +70,7 @@ Animator:
   m_GameObject: {fileID: 131790}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 3159d7774b72daf429e32edddb4927d0, type: 2}
+  m_Controller: {fileID: 9100000, guid: e22bda5e80607b6478f481cf869402ed, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -102,16 +90,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skel: {fileID: 458492}
-  alignSizeDeath: {x: 1.875609, y: 1.819848, z: 0.8}
-  alignCenterDeath: {x: -0.006182134, y: -0.08588076, z: 0}
+  alignSizeDeath: {x: 0, y: 0, z: 0}
+  alignCenterDeath: {x: 0, y: 0, z: 0}
   alignSizeWalking: {x: 1.458394, y: 3.341921, z: 0.8}
   alignCenterWalking: {x: -0.04194927, y: -0.03480339, z: 0}
-  speed: -3
+  speed: -5
   accel: 0
   hitForce: 700
   zfollow: -0.1
   health: 1
---- !u!135 &13575022
+--- !u!135 &13564818
 SphereCollider:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -121,7 +109,20 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5
+  m_Radius: 6
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!136 &13601004
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 131790}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.79
+  m_Height: 3.6
+  m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!212 &21224492
 SpriteRenderer:
@@ -171,7 +172,7 @@ Prefab:
         type: 3}
     - target: {fileID: 0}
       propertyPath: m_Radius
-      value: 5
+      value: 0.79
       objectReference: {fileID: 0}
     - target: {fileID: 0}
       propertyPath: zfollow
@@ -188,6 +189,22 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: m_FlipX
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: speed
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Height
+      value: 3.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Skeleton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

@@ -6,17 +6,17 @@ public class PlayerController : MonoBehaviour
 {
     private Animator animator;
     private Rigidbody rb;
-    private new BoxCollider collider;
     private int mode;
     private int stand = 0;
     private int move = 1;
     private int attack = 2;
     private int jumping = 3;
     private int attackOverride = 0;
-    private int timer; 
+    private int timer;
+    private bool dead, executing;
     private string input = "";
-    public float speed, lean, jumpForce, dashForce, timeScale, punchForce;
-    public int direction, specialTime; // -1 for left, 1 for right
+    public float speed, lean, jumpForce, dashForce, timeScale, punchForce, hitForce;
+    public int direction, specialTime, health; // -1 for left, 1 for right
     public Vector3 standCenter;// = new Vector3((float)-.2, (float)-.4, 0);
     public Vector3 standSize;// = new Vector3((float)1.3, (float)4.3, (float).8);
     public Vector3 runCenter;// = new Vector3((float)-.45, (float)-.87, 0);
@@ -25,6 +25,11 @@ public class PlayerController : MonoBehaviour
     public float vert;
     private bool isGrounded, goingIn, goingOut;
     public Transform fireball;
+    public Transform arrowUp;
+    public Transform arrowDown;
+    public Transform arrowLeft;
+    public Transform arrowRight;
+    private int numInputs = 0;
 
     //moves --> 0 is facing right, 1 is facing left
     private string[] shoot = {"dr", "dl"};
@@ -37,43 +42,46 @@ public class PlayerController : MonoBehaviour
     {
         animator = this.GetComponent<Animator>();
         rb = this.GetComponent<Rigidbody>();
-        collider = this.GetComponent<BoxCollider>();
         isGrounded = true;
-        goingIn = goingIn = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(transform.position, Vector3.down * collider.bounds.extents.y, Color.green);
+        //Debug.DrawRay(transform.position, Vector3.down * collider.bounds.extents.y, Color.green);
         mode = getKey();
 
-        if (mode == attack || attackOverride == 1)
-        {
-            special();
+        if (health == 0 && !dead) { //called once when just died
+            animator.SetTrigger("Dead");
+            rb.constraints = RigidbodyConstraints.FreezePositionX |
+                RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
+            dead = true;
+        } else if (!dead) { //called while still alive
+            if (mode == attack || attackOverride == 1) {
+                special();
 
-            if (isPressingRunKeys() && !animator.GetBool("Jumping") 
-                && !animator.GetBool("Dashing")) { 
+                if (isPressingRunKeys() && !animator.GetBool("Jumping")
+                    && !animator.GetBool("Dashing")) {
+                    run();
+                }
+                else if (!animator.GetBool("Jumping") && !animator.GetBool("Dashing")) {
+                    idle();
+                }
+            }
+            else if (mode == move && !animator.GetBool("Dashing")) {
                 run();
-            } else if (!animator.GetBool("Jumping") && !animator.GetBool("Dashing")) {
+            }
+            else if (mode == jumping) {
+                jump();
+            }
+            else if (mode == stand) {
                 idle();
             }
-        }
-        else if (mode == move && !animator.GetBool("Dashing"))
-        {
-            run();
-        } else if (mode == jumping) 
-        {
-            jump();
-        }
-        else if (mode == stand)
-        {
-            idle();
         }
     }
 
     void OnCollisionEnter(Collision col) {
-        if ((col.gameObject.CompareTag("Ground")) && !isGrounded) {
+        if (col.gameObject.CompareTag("Ground") && !isGrounded) {
             Vector3 norm = col.contacts[0].normal;
 
             if (norm.y > 0) {
@@ -82,7 +90,16 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Jumping", false);
                 animator.SetBool("Dashing", false);
             }
+        } else if (col.gameObject.CompareTag("Skeleton") && !executing) {
+            getHit(col.transform.position);
         }
+    }
+
+    void getHit(Vector3 colPos) {
+        animator.SetTrigger("Hit");
+
+        Vector3 hit = rb.position - colPos;
+        rb.AddForce((hit.normalized + (Vector3.up * .5f)) * hitForce);
     }
 
     void jump() {
@@ -109,6 +126,12 @@ public class PlayerController : MonoBehaviour
 
     //called by jump animation to keep top of jump frame activated until landing
     void stillInAir() {
+        if (!isGrounded && !executing) {
+            animator.enabled = false;
+        }
+    }
+
+    void stillDashing() {
         if (!isGrounded) {
             animator.enabled = false;
         }
@@ -172,9 +195,7 @@ public class PlayerController : MonoBehaviour
             BoxCollider bc = GetComponent<BoxCollider>();
             bc.center = standCenter;
             bc.size = standSize;
-        } //else if (animator.GetBool("Dashing")) {
-          //  animator.SetBool("Jumping", false);
-       // }
+        }
 
         this.transform.localEulerAngles = new Vector3((float)0, (float)0, (float)0);
     }
@@ -308,13 +329,12 @@ public class PlayerController : MonoBehaviour
 
         if (validInput) {
             animator.enabled = true;
+            executing = true;
         }
     }
 
-    void special()
-    {
-        if (!animator.GetBool("SpecialAttack"))
-        {
+    void special() {
+        if (!animator.GetBool("SpecialAttack")) {
             animator.SetBool("SpecialAttack", true);
             Time.timeScale = timeScale;
             timer = specialTime;
@@ -322,37 +342,65 @@ public class PlayerController : MonoBehaviour
         }
 
         //print("checking attack input");
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
+        if (Input.GetKeyDown(KeyCode.UpArrow)) {
             input += "u";
-            //print(input);
-        } 
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-        {
-            input += "d";
-            //print(input);
-        }    
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            input += "l";
+            numInputs++;
+            showArrowUp();
             //print(input);
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
-        {
+        else if (Input.GetKeyDown(KeyCode.DownArrow)) {
+            input += "d";
+            numInputs++;
+            showArrowDown();
+            //print(input);
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow)) {
+            input += "l";
+            numInputs++;
+            showArrowLeft();
+            //print(input);
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow)) {
             input += "r";
+            numInputs++;
+            showArrowRight();
             //print(input);
         }
 
-        if (Input.GetKeyUp(KeyCode.Space) || timer <= 0)
-        {
+        if (Input.GetKeyUp(KeyCode.Space) || timer <= 0) {
             attackOverride = 0;
             animator.SetBool("SpecialAttack", false);
             executeMove(input);
             input = "";
             Time.timeScale = 1;
+            numInputs = 0;
         }
 
         timer--;
+    }
+
+    public int getNumInputs() {
+        return numInputs;
+    }
+
+    void showArrowUp() {
+        Vector3 spawnPos = transform.position;
+        Instantiate(arrowUp, spawnPos, transform.rotation);
+    }
+
+    void showArrowDown() {
+        Vector3 spawnPos = transform.position;
+        Instantiate(arrowDown, spawnPos, transform.rotation);
+    }
+
+    void showArrowLeft() {
+        Vector3 spawnPos = transform.position;
+        Instantiate(arrowLeft, spawnPos, transform.rotation);
+    }
+
+    void showArrowRight() {
+        Vector3 spawnPos = transform.position;
+        Instantiate(arrowRight, spawnPos, transform.rotation);
     }
 
     int getKey()
