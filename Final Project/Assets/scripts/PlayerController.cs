@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 
 public class PlayerController : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class PlayerController : MonoBehaviour
     private bool dead, executing;
     private string input = "";
     public float speed, lean, jumpForce, dashForce, timeScale, punchForce, hitForce;
-    public int direction, specialTime, playerHealth; // -1 for left, 1 for right
+    public int direction, specialTime; // -1 for left, 1 for right
     public Vector3 standCenter;// = new Vector3((float)-.2, (float)-.4, 0);
     public Vector3 standSize;// = new Vector3((float)1.3, (float)4.3, (float).8);
     public Vector3 runCenter;// = new Vector3((float)-.45, (float)-.87, 0);
@@ -31,6 +32,8 @@ public class PlayerController : MonoBehaviour
     public Transform arrowRight;
     private int numInputs = 0;
     public HealthBarController healthBar;
+    public float hitCooldown, specialCoolDown;
+    private DateTime gotHitTime, startedSpecialTime;
 
     //moves --> 0 is facing right, 1 is facing left
     private string[] shoot = {"dr", "dl"};
@@ -52,7 +55,7 @@ public class PlayerController : MonoBehaviour
         //Debug.DrawRay(transform.position, Vector3.down * collider.bounds.extents.y, Color.green);
         mode = getKey();
 
-        if (playerHealth == 0 && !dead) { //called once when just died
+        if (healthBar.health <= 0 && !dead) { //called once when just died
             animator.SetTrigger("Dead");
             rb.constraints = RigidbodyConstraints.FreezePositionX |
                 RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
@@ -72,7 +75,7 @@ public class PlayerController : MonoBehaviour
             else if (mode == move && !animator.GetBool("Dashing")) {
                 run();
             }
-            else if (mode == jumping) {
+            else if (mode == jumping && !executing) {
                 jump();
             }
             else if (mode == stand) {
@@ -92,17 +95,37 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Dashing", false);
             }
         } else if (col.gameObject.CompareTag("Skeleton") && !executing) {
-            getHit(col.transform.position);
+            getHit(col.transform.position, 10);
         }
     }
 
-    void getHit(Vector3 colPos) {
-        animator.SetTrigger("Hit");
+    void endExecution() {
+        executing = false;
+    }
 
-        Vector3 hit = rb.position - colPos;
-        rb.AddForce((hit.normalized + (Vector3.up * .5f)) * hitForce);
-        healthBar.takeDamage(10);
-        playerHealth -= 10;
+    //returns if can be hit now
+    bool canBeHit() {
+        return (DateTime.Now - gotHitTime).TotalSeconds >= hitCooldown;
+    }
+
+    //damage is percentage of health lost
+    void getHit(Vector3 colPos, int damage) {
+
+        //cooldown for getting hit
+        if (canBeHit()) {
+            Vector3 hit = rb.position - colPos;
+            rb.AddForce((hit.normalized + (Vector3.up * .5f)) * hitForce);
+            healthBar.takeDamage(damage);
+
+            if (healthBar.health <= 0) {
+                animator.SetTrigger("Dead");
+                dead = true;
+            }
+            else {
+                animator.SetTrigger("Hit");
+                gotHitTime = System.DateTime.Now;
+            }
+        }
     }
 
     void jump() {
@@ -336,14 +359,19 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    bool canStartSpecial() {
+        return (DateTime.Now - startedSpecialTime).TotalSeconds >= specialCoolDown;
+    }
+
     void special() {
         if (!animator.GetBool("SpecialAttack")) {
             animator.SetBool("SpecialAttack", true);
             Time.timeScale = timeScale;
             timer = specialTime;
+            startedSpecialTime = DateTime.Now;
             return;
         }
-
+            
         //print("checking attack input");
         if (Input.GetKeyDown(KeyCode.UpArrow)) {
             input += "u";
@@ -409,7 +437,7 @@ public class PlayerController : MonoBehaviour
     int getKey()
     {
         //if starting special attack or already entering attack
-        if (Input.GetKeyDown(KeyCode.Space) || attackOverride == 1)
+        if ((Input.GetKeyDown(KeyCode.Space) && canStartSpecial()) || attackOverride == 1)
         {
             attackOverride = 1;
             return attack;

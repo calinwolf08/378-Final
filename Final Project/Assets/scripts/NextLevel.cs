@@ -4,11 +4,11 @@ using System.Collections;
 
 public class NextLevel : MonoBehaviour {
 
-   public GameObject enemySpawner;
+   private GameObject enemySpawner;
 
 	// Use this for initialization
 	void Start () {
-	
+        enemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner");
 	}
 	
 	// Update is called once per frame

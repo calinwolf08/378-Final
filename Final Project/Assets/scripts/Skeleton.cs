@@ -17,7 +17,7 @@ public class Skeleton : MonoBehaviour {
     public Vector3 alignSizeWalking;
     public Vector3 alignCenterWalking;
 
-    public GameObject enemySpawner;
+    private GameObject enemySpawner;
 
 	private Vector3 blowPostion;
 	private Vector3 triggerPosition;
@@ -44,7 +44,7 @@ public class Skeleton : MonoBehaviour {
 		collider = GetComponent<BoxCollider> ();
 		sphereCollider = GetComponent<SphereCollider> ();
 		render = GetComponent<SpriteRenderer> ();
-
+        enemySpawner = GameObject.FindGameObjectWithTag("EnemySpawner");
         collider.size = alignSizeWalking;
         collider.center = alignCenterWalking;
     }
@@ -69,7 +69,7 @@ public class Skeleton : MonoBehaviour {
 
         if (!dead && health <= 0) {
             dead = true;
-            enemySpawner.GetComponent<BetaEnemySpawner>().setEnemiesLeft(enemySpawner.GetComponent<BetaEnemySpawner>().getEnemiesLeft() - 1);
+            enemySpawner.GetComponent<BetaEnemySpawner>().decrementNumEnemies();
         }
     }
 
@@ -78,13 +78,10 @@ public class Skeleton : MonoBehaviour {
     }
 
 	void OnCollisionEnter(Collision col){
-		if (col.gameObject.CompareTag("Player") && !anim.GetBool ("death")) {
+		if ((col.gameObject.CompareTag("Player") || col.gameObject.CompareTag("Fireball")) && !anim.GetBool ("death")) {
 			setForce (transform.right);
 			anim.SetBool ("death", true);
 			health--;
-
-            // Update enemies left
-            enemySpawner.GetComponent<BetaEnemySpawner>().setEnemiesLeft(enemySpawner.GetComponent<BetaEnemySpawner>().getEnemiesLeft() - 1);
         }
     }
 

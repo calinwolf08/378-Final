@@ -19,28 +19,28 @@ public class BetaEnemySpawner : MonoBehaviour {
 	void Start () {
       System.Random rng = new System.Random();
 
-      enemiesBlock1 = rng.Next(1, enemiesPerBlock);
-      enemiesBlock2 = rng.Next(1, enemiesPerBlock);
-      enemiesBlock3 = rng.Next(1, enemiesPerBlock);
+        enemiesBlock1 = enemiesPerBlock;//rng.Next(1, enemiesPerBlock);
+        enemiesBlock2 = enemiesPerBlock;//rng.Next(1, enemiesPerBlock);
+        enemiesBlock3 = enemiesPerBlock;//rng.Next(1, enemiesPerBlock);
 
       numEnemies = enemiesBlock1 + enemiesBlock2 + enemiesBlock3;
 
       // Spawn enemies in zone 1
       for (int i = 0; i < enemiesBlock1; i++) {
          // Instantiate(randomEnemy(rng), new Vector3(22, (float)2.55, 3 + i), Quaternion.identity);
-         Instantiate(skeleton, new Vector3(22, (float)2.55, 3 + i), Quaternion.identity);
+         Instantiate(skeleton, new Vector3(22, (float)2.55, -2 * i), Quaternion.identity);
       }
 
       // Spawn enemies in zone 2
       for (int i = 0; i < enemiesBlock2; i++) {
          // Instantiate(randomEnemy(rng), new Vector3(42, (float)2.55, 3 + i), Quaternion.identity);
-         Instantiate(skeleton, new Vector3(42, (float)2.55, 3 + i), Quaternion.identity);
+         Instantiate(skeleton, new Vector3(42, (float)2.55, -2 * i), Quaternion.identity);
       }
 
       // Spawn enemies in zone 3
       for (int i = 0; i < enemiesBlock3; i++) {
          // Instantiate(randomEnemy(rng), new Vector3(62, (float)2.55, 3 + i), Quaternion.identity);
-         Instantiate(skeleton, new Vector3(62, (float)2.55, 3 + i), Quaternion.identity);
+         Instantiate(skeleton, new Vector3(62, (float)2.55, -2 * i), Quaternion.identity);
       }
 	}
 
@@ -66,6 +66,11 @@ public class BetaEnemySpawner : MonoBehaviour {
 
     public void setEnemiesLeft(int newNumEnemies) {
         numEnemies = newNumEnemies;
+    }
+
+    public void decrementNumEnemies() {
+        numEnemies--;
+        print(numEnemies);
     }
 	
 	// Update is called once per frame

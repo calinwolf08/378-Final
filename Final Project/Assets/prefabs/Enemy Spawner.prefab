@@ -42,13 +42,18 @@ MonoBehaviour:
   skeleton: {fileID: 131790, guid: 2e7d67d79d9f54e4a99caeb1b353bb07, type: 2}
   punisher: {fileID: 123682, guid: 66cb19b4182f6584492841db103ce2b4, type: 2}
   enemiesPerBlock: 5
+  numEnemies: -6
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: numEnemies
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 181488}

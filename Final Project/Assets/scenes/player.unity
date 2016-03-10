@@ -275,7 +275,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64b42c95b9e219644968bbb9e1a1ea2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawner: {fileID: 1451398268}
 --- !u!23 &94216210
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1000,7 +999,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 450026, guid: 2b5698b296176f8458d0c14ec82af8f2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -5.218878
+      value: 1.9
       objectReference: {fileID: 0}
     - target: {fileID: 450026, guid: 2b5698b296176f8458d0c14ec82af8f2, type: 2}
       propertyPath: m_LocalPosition.y
@@ -1008,7 +1007,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 450026, guid: 2b5698b296176f8458d0c14ec82af8f2, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -6.52967
+      value: 7.85
       objectReference: {fileID: 0}
     - target: {fileID: 450026, guid: 2b5698b296176f8458d0c14ec82af8f2, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1030,13 +1029,17 @@ Prefab:
       propertyPath: m_RootOrder
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 181488, guid: 2b5698b296176f8458d0c14ec82af8f2, type: 2}
+      propertyPath: m_TagString
+      value: EnemySpawner
+      objectReference: {fileID: 0}
+    - target: {fileID: 11465142, guid: 2b5698b296176f8458d0c14ec82af8f2, type: 2}
+      propertyPath: numEnemies
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2b5698b296176f8458d0c14ec82af8f2, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &1451398268 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 181488, guid: 2b5698b296176f8458d0c14ec82af8f2, type: 2}
-  m_PrefabInternal: {fileID: 1451398267}
 --- !u!1 &1498439029
 GameObject:
   m_ObjectHideFlags: 0
