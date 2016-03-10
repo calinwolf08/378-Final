@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour
     private bool dead, executing;
     private string input = "";
     public float speed, lean, jumpForce, dashForce, timeScale, punchForce, hitForce;
-    public int direction, specialTime, health; // -1 for left, 1 for right
+    public int direction, specialTime, playerHealth; // -1 for left, 1 for right
     public Vector3 standCenter;// = new Vector3((float)-.2, (float)-.4, 0);
     public Vector3 standSize;// = new Vector3((float)1.3, (float)4.3, (float).8);
     public Vector3 runCenter;// = new Vector3((float)-.45, (float)-.87, 0);
@@ -30,6 +30,7 @@ public class PlayerController : MonoBehaviour
     public Transform arrowLeft;
     public Transform arrowRight;
     private int numInputs = 0;
+    public HealthBarController healthBar;
 
     //moves --> 0 is facing right, 1 is facing left
     private string[] shoot = {"dr", "dl"};
@@ -51,7 +52,7 @@ public class PlayerController : MonoBehaviour
         //Debug.DrawRay(transform.position, Vector3.down * collider.bounds.extents.y, Color.green);
         mode = getKey();
 
-        if (health == 0 && !dead) { //called once when just died
+        if (playerHealth == 0 && !dead) { //called once when just died
             animator.SetTrigger("Dead");
             rb.constraints = RigidbodyConstraints.FreezePositionX |
                 RigidbodyConstraints.FreezePositionY | RigidbodyConstraints.FreezePositionZ;
@@ -100,6 +101,8 @@ public class PlayerController : MonoBehaviour
 
         Vector3 hit = rb.position - colPos;
         rb.AddForce((hit.normalized + (Vector3.up * .5f)) * hitForce);
+        healthBar.takeDamage(10);
+        playerHealth -= 10;
     }
 
     void jump() {

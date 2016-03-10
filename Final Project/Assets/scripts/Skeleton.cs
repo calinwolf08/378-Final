@@ -17,6 +17,8 @@ public class Skeleton : MonoBehaviour {
     public Vector3 alignSizeWalking;
     public Vector3 alignCenterWalking;
 
+    public GameObject enemySpawner;
+
 	private Vector3 blowPostion;
 	private Vector3 triggerPosition;
 
@@ -31,6 +33,8 @@ public class Skeleton : MonoBehaviour {
 	private bool blow;
 	private bool newSpawn = false;
 
+    // temporary
+    private bool dead = false;
 
 	// Use this for initialization
 	void Start () {
@@ -62,7 +66,12 @@ public class Skeleton : MonoBehaviour {
 			newSpawn = true;
 			StartCoroutine (waitSpawn ());
 		}
-	}
+
+        if (!dead && health <= 0) {
+            dead = true;
+            enemySpawner.GetComponent<BetaEnemySpawner>().setEnemiesLeft(enemySpawner.GetComponent<BetaEnemySpawner>().getEnemiesLeft() - 1);
+        }
+    }
 
     public bool isDead() {
         return anim.GetBool("death");
@@ -73,8 +82,11 @@ public class Skeleton : MonoBehaviour {
 			setForce (transform.right);
 			anim.SetBool ("death", true);
 			health--;
-		}
-	}
+
+            // Update enemies left
+            enemySpawner.GetComponent<BetaEnemySpawner>().setEnemiesLeft(enemySpawner.GetComponent<BetaEnemySpawner>().getEnemiesLeft() - 1);
+        }
+    }
 
 	void OnTriggerEnter(Collider other) {
 		if(other.gameObject.CompareTag("Player") && !anim.GetBool("death") && !anim.GetBool("collision") && !blow) {

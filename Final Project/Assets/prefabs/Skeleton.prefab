@@ -94,6 +94,7 @@ MonoBehaviour:
   alignCenterDeath: {x: 0, y: 0, z: 0}
   alignSizeWalking: {x: 1.458394, y: 3.341921, z: 0.8}
   alignCenterWalking: {x: -0.04194927, y: -0.03480339, z: 0}
+  enemySpawner: {fileID: 181488, guid: 2b5698b296176f8458d0c14ec82af8f2, type: 2}
   speed: -5
   accel: 0
   hitForce: 700
@@ -206,6 +207,10 @@ Prefab:
       propertyPath: m_TagString
       value: Skeleton
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: enemySpawner
+      value: 
+      objectReference: {fileID: 181488, guid: 2b5698b296176f8458d0c14ec82af8f2, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 131790}
