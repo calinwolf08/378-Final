@@ -7,6 +7,7 @@ TagManager:
   - Fireball
   - Skeleton
   - Ground
+  - EnemySpawner
   layers:
   - Default
   - TransparentFX
