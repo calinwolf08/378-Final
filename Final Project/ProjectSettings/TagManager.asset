@@ -8,6 +8,7 @@ TagManager:
   - Skeleton
   - Ground
   - EnemySpawner
+  - Wall
   layers:
   - Default
   - TransparentFX

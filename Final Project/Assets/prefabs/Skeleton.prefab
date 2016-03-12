@@ -9,9 +9,9 @@ GameObject:
   m_Component:
   - 4: {fileID: 458492}
   - 212: {fileID: 21224492}
-  - 95: {fileID: 9574712}
   - 54: {fileID: 5431512}
   - 65: {fileID: 6516798}
+  - 95: {fileID: 9574712}
   - 114: {fileID: 11469078}
   - 136: {fileID: 13601004}
   - 135: {fileID: 13564818}
@@ -29,7 +29,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 131790}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.86, y: 1.67, z: -0.67}
+  m_LocalPosition: {x: 0.43160248, y: 2.3263898, z: -12.100001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -59,8 +59,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1.875609, y: 1.819848, z: 0.8}
-  m_Center: {x: -0.006182134, y: -0.08588076, z: 0}
+  m_Size: {x: 1.458394, y: 3.341921, z: 0.8}
+  m_Center: {x: -0.041949272, y: -0.03480339, z: 0}
 --- !u!95 &9574712
 Animator:
   serializedVersion: 3
@@ -90,14 +90,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skel: {fileID: 458492}
-  alignSizeDeath: {x: 0, y: 0, z: 0}
-  alignCenterDeath: {x: 0, y: 0, z: 0}
+  explosion: {fileID: 493138, guid: 32ffb2ef172202941a5b79982c6c137c, type: 2}
+  alignSizeDeath: {x: 1.458394, y: 1.910809, z: 0.8}
+  alignCenterDeath: {x: -0.04194927, y: -0.03480339, z: 0}
   alignSizeWalking: {x: 1.458394, y: 3.341921, z: 0.8}
   alignCenterWalking: {x: -0.04194927, y: -0.03480339, z: 0}
-  enemySpawner: {fileID: 181488, guid: 2b5698b296176f8458d0c14ec82af8f2, type: 2}
   speed: -5
   accel: 0
   hitForce: 700
+  explodeForce: 20
   zfollow: -0.1
   health: 1
 --- !u!135 &13564818
@@ -211,6 +212,22 @@ Prefab:
       propertyPath: enemySpawner
       value: 
       objectReference: {fileID: 181488, guid: 2b5698b296176f8458d0c14ec82af8f2, type: 2}
+    - target: {fileID: 0}
+      propertyPath: explosion
+      value: 
+      objectReference: {fileID: 493138, guid: 32ffb2ef172202941a5b79982c6c137c, type: 2}
+    - target: {fileID: 0}
+      propertyPath: explodeForce
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: hitForce
+      value: 700
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 131790}

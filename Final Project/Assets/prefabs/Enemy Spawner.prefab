@@ -11,7 +11,7 @@ GameObject:
   - 114: {fileID: 11465142}
   m_Layer: 0
   m_Name: Enemy Spawner
-  m_TagString: Untagged
+  m_TagString: EnemySpawner
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23,7 +23,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 181488}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.218878, y: 2.6768594, z: -6.52967}
+  m_LocalPosition: {x: 1.9, y: 2.6768594, z: 7.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -41,8 +41,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skeleton: {fileID: 131790, guid: 2e7d67d79d9f54e4a99caeb1b353bb07, type: 2}
   punisher: {fileID: 123682, guid: 66cb19b4182f6584492841db103ce2b4, type: 2}
-  enemiesPerBlock: 5
-  numEnemies: -6
+  enemiesPerBlock: 1
+  numEnemies: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -53,6 +53,10 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: numEnemies
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: EnemySpawner
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}

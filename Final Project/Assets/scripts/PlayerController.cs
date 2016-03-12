@@ -14,7 +14,7 @@ public class PlayerController : MonoBehaviour
     private int jumping = 3;
     private int attackOverride = 0;
     private int timer;
-    private bool dead, executing;
+    private bool dead;
     private string input = "";
     public float speed, lean, jumpForce, dashForce, timeScale, punchForce, hitForce;
     public int direction, specialTime; // -1 for left, 1 for right
@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour
     public HealthBarController healthBar;
     public float hitCooldown, specialCoolDown;
     private DateTime gotHitTime, startedSpecialTime;
+    public bool executing;
 
     //moves --> 0 is facing right, 1 is facing left
     private string[] shoot = {"dr", "dl"};
@@ -94,7 +95,10 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Jumping", false);
                 animator.SetBool("Dashing", false);
             }
-        } else if (col.gameObject.CompareTag("Skeleton") && !executing) {
+        } else if ((col.gameObject.CompareTag("Skeleton") && 
+            !col.gameObject.GetComponent<Animator>().GetBool("collision")) &&
+            !executing) {
+
             getHit(col.transform.position, 10);
         }
     }
@@ -104,13 +108,12 @@ public class PlayerController : MonoBehaviour
     }
 
     //returns if can be hit now
-    bool canBeHit() {
-        return (DateTime.Now - gotHitTime).TotalSeconds >= hitCooldown;
+    public bool canBeHit() {
+        return ((DateTime.Now - gotHitTime).TotalSeconds >= hitCooldown) && !executing;
     }
 
     //damage is percentage of health lost
-    void getHit(Vector3 colPos, int damage) {
-
+    public void getHit(Vector3 colPos, float damage) {
         //cooldown for getting hit
         if (canBeHit()) {
             Vector3 hit = rb.position - colPos;

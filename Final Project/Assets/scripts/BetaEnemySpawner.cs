@@ -70,7 +70,6 @@ public class BetaEnemySpawner : MonoBehaviour {
 
     public void decrementNumEnemies() {
         numEnemies--;
-        print(numEnemies);
     }
 	
 	// Update is called once per frame
