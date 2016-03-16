@@ -15,9 +15,9 @@ public class BetaEnemySpawner : MonoBehaviour {
    private int enemiesBlock2;
    private int enemiesBlock3;
 
-	// Use this for initialization
-	void Start () {
-      System.Random rng = new System.Random();
+    // Use this for initialization
+    void Start () {
+        System.Random rng = new System.Random();
 
         enemiesBlock1 = enemiesPerBlock;//rng.Next(1, enemiesPerBlock);
         enemiesBlock2 = enemiesPerBlock;//rng.Next(1, enemiesPerBlock);

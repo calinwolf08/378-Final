@@ -8,7 +8,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 450026}
-  - 114: {fileID: 11465142}
+  - 114: {fileID: 11430180}
   m_Layer: 0
   m_Name: Enemy Spawner
   m_TagString: EnemySpawner
@@ -28,7 +28,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11465142
+--- !u!114 &11430180
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skeleton: {fileID: 131790, guid: 2e7d67d79d9f54e4a99caeb1b353bb07, type: 2}
   punisher: {fileID: 123682, guid: 66cb19b4182f6584492841db103ce2b4, type: 2}
-  enemiesPerBlock: 1
+  enemiesPerBlock: 0
   numEnemies: 0
 --- !u!1001 &100100000
 Prefab:
@@ -58,6 +58,14 @@ Prefab:
       propertyPath: m_TagString
       value: EnemySpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 131790, guid: 2e7d67d79d9f54e4a99caeb1b353bb07, type: 2}
+    - target: {fileID: 0}
+      propertyPath: punisher
+      value: 
+      objectReference: {fileID: 123682, guid: 66cb19b4182f6584492841db103ce2b4, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 181488}

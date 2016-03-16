@@ -110,6 +110,7 @@ MonoBehaviour:
   healthBar: {fileID: 0}
   hitCooldown: 1
   specialCoolDown: 1
+  executing: 0
 --- !u!212 &21290608
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -150,7 +151,7 @@ Prefab:
     - target: {fileID: 0}
       propertyPath: healthBar
       value: 
-      objectReference: {fileID: 11473422, guid: fa2e2d8eb8dfffe4a87427c48d5a04d0,
+      objectReference: {fileID: 11453796, guid: 290e0a003e72fea42bbdb6e0deaa4954,
         type: 2}
     - target: {fileID: 0}
       propertyPath: fireball

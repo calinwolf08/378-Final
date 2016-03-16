@@ -7,14 +7,20 @@ public class punisher : MonoBehaviour {
     private ParticleSystem par;
     private BoxCollider collider;
     private SphereCollider sphereCollider;
+    private CapsuleCollider capsule;
     private SpriteRenderer render;
     public Transform punish;
 
     public float speed;
     public float zSpeed;
+    private float moveSpeed;
 
     private Vector3 toMove;
     private Vector3 foundYou;
+    private bool dying;
+    private bool pound = false;
+    private bool hammerLoc = false;
+
     // Use this for initialization
     void Start() {
         anim = GetComponent<Animator>();
@@ -25,40 +31,78 @@ public class punisher : MonoBehaviour {
         render = GetComponent<SpriteRenderer>();
 
         foundYou = Vector3.zero;
+        moveSpeed = speed;
+        dying = false;
     }
 
     // Update is called once per frame
     void Update() {
-        if (speed < 0)
-            render.flipX = false;
-        else
-            render.flipX = true;
-
-        if (!foundYou.Equals(Vector3.zero)) {
+        if (anim.GetBool("death")) {
+            StartCoroutine(waitDeath());
+        }
+        else if (!foundYou.Equals(Vector3.zero) && !dying) {
             transform.position += trackLocation(foundYou, transform.position);
         }
-        else
+        else if (!dying) {
+            setFacing(speed);
             transform.position += new Vector3(speed * Time.deltaTime, 0.0f, 0.0f);
+        }
     }
 
     void OnCollisionEnter(Collision col) {
         if (col.gameObject.name == "Player") {
 
         }
+
+        if (col.gameObject.name == "Fireball") {
+            anim.SetBool("death", true);
+        }
+
+        if (col.gameObject.name == "Left Wall" || col.gameObject.name == "Right Wall") {
+            speed *= -1;
+        }
     }
 
     void OnTriggerEnter(Collider other) {
-        if (other.name == "Player" && foundYou.Equals(Vector3.zero)) {
-            foundYou = other.transform.position;
+        bool skipLR = other.gameObject.CompareTag("Left Wall") || other.gameObject.CompareTag("Right Wall");
+        bool skipBase = other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Back Wall");
+
+        if (other.gameObject.CompareTag("Player") && foundYou.Equals(Vector3.zero) && !hammerLoc) {
+            StartCoroutine(waitOnNextLocation(other));
+        }
+
+        if (!skipLR && !skipBase && anim.GetBool("hammerTime") && !pound) {
+            StartCoroutine(waitGroundPound(other));
         }
     }
 
     void OnTriggerExit(Collider other) {
-        if (other.name == "Player") {
+        bool skipLR = other.gameObject.CompareTag("Left Wall") || other.gameObject.CompareTag("Right Wall");
+        bool skipBase = other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Back Wall");
 
+        if (other.gameObject.CompareTag("Player") && foundYou.Equals(Vector3.zero) && !hammerLoc) {
+            StartCoroutine(waitOnNextLocation(other));
         }
+
+        if (!skipLR && !skipBase && anim.GetBool("hammerTime") && !pound) {
+            StartCoroutine(waitGroundPound(other));
+        }
+
         if (other.name == "Ground") {
             speed *= -1;
+        }
+    }
+
+    void OnTriggerStay(Collider other) {
+        bool skipLR = other.gameObject.CompareTag("Left Wall") || other.gameObject.CompareTag("Right Wall");
+        bool skipBase = other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Back Wall");
+
+        if (other.gameObject.CompareTag("Player") && foundYou.Equals(Vector3.zero) && !hammerLoc) {
+            StartCoroutine(waitOnNextLocation(other));
+        }
+
+        if (!skipLR && !skipBase && anim.GetBool("hammerTime") && !pound) {
+            StartCoroutine(waitGroundPound(other));
         }
     }
 
@@ -67,37 +111,56 @@ public class punisher : MonoBehaviour {
 
         if (Mathf.Abs(player.x - currLocation.x) <= 1 &&
             Mathf.Abs(player.z - currLocation.z) <= 1) {
-            anim.SetBool("hammerTime", true);
-            StartCoroutine(waitHammerTime());
+            StartCoroutine(nextHammerTime());
             return Vector3.zero;
         }
-        if (player.x > currLocation.x) {
-            x = Mathf.Abs(speed);
-            render.flipX = true;
-        }
-        else if (player.x < currLocation.x) {
-            x = speed;
-            render.flipX = false;
-        }
 
-        if (player.z > currLocation.z) {
+        if (player.x > currLocation.x)
+            x = Mathf.Abs(moveSpeed);
+        else if (player.x < currLocation.x)
+            x = moveSpeed;
+
+        setFacing(x);
+        if (player.z > currLocation.z)
             z = Mathf.Abs(zSpeed);
-        }
-        else if (player.z < currLocation.z) {
+        else if (player.z < currLocation.z)
             z = zSpeed;
-        }
-        toMove = new Vector3(x * Time.deltaTime, 0f, z);
 
-        return toMove;
+        return new Vector3(x * Time.deltaTime, 0f, z);
     }
 
-    IEnumerator waitHammerTime() {
+    IEnumerator waitDeath() {
         yield return new WaitForSeconds(1);
+        Destroy(this.gameObject);
+    }
+
+    IEnumerator nextHammerTime() {
+        anim.SetBool("hammerTime", true);
+        rig.isKinematic = true;
+        yield return new WaitForSeconds(2f);
+        rig.isKinematic = false;
         anim.SetBool("hammerTime", false);
         foundYou = Vector3.zero;
-        render.flipX = false;
-        sphereCollider.isTrigger = true;
-        //Instantiate (punish,transform.position,transform.rotation);
-        //Destroy (this.gameObject);
+    }
+
+    IEnumerator waitGroundPound(Collider other) {
+        pound = true;
+        yield return new WaitForSeconds(.5f);
+        other.transform.position += new Vector3(0f, 2f, 0f);
+        pound = false;
+    }
+
+    IEnumerator waitOnNextLocation(Collider other) {
+        hammerLoc = true;
+        yield return new WaitForSeconds(2);
+        foundYou = other.transform.position;
+        hammerLoc = false;
+    }
+
+    public void setFacing(float xdir) {
+        if (xdir < 0)
+            render.flipX = false;
+        else
+            render.flipX = true;
     }
 }
