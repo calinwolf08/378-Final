@@ -86,10 +86,11 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnCollisionEnter(Collision col) {
+
         if (col.gameObject.CompareTag("Ground") && !isGrounded) {
             Vector3 norm = col.contacts[0].normal;
 
-            if (norm.y > 0) {
+            if (norm.y > 0) { //if hitting ground from above
                 isGrounded = true;
                 animator.enabled = true;
                 animator.SetBool("Jumping", false);

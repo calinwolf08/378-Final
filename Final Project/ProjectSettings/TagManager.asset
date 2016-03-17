@@ -10,6 +10,7 @@ TagManager:
   - EnemySpawner
   - Wall
   - Punisher
+  - Necromancer
   layers:
   - Default
   - TransparentFX
