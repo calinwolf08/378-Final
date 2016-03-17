@@ -95,11 +95,16 @@ public class PlayerController : MonoBehaviour
                 animator.SetBool("Jumping", false);
                 animator.SetBool("Dashing", false);
             }
-        } else if ((col.gameObject.CompareTag("Skeleton") && 
-            !col.gameObject.GetComponent<Animator>().GetBool("collision")) &&
-            !executing) {
+        }
+        else if ((col.gameObject.CompareTag("Skeleton") &&
+          !col.gameObject.GetComponent<Animator>().GetBool("collision")) &&
+          !executing) {
 
             getHit(col.transform.position, 10);
+        }
+        else if ((col.gameObject.CompareTag("Punisher") &&
+          !col.gameObject.GetComponent<Animator>().GetBool("hammerTime")) && !executing) {
+
         }
     }
 

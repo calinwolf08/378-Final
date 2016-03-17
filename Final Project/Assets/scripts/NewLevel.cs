@@ -10,7 +10,7 @@ public class NewLevel : MonoBehaviour {
       GameObject player = GameObject.FindGameObjectWithTag("Player");
 
       camera.GetComponent<CameraController>().player = player;
-      player.transform.position = new Vector3((float)-15.85, (float)2.6, (float)-6.59);
+      //player.transform.position = new Vector3((float)-15.85, (float)2.6, (float)-6.59);
 	}
 	
 	// Update is called once per frame

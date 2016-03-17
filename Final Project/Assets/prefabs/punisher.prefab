@@ -17,7 +17,7 @@ GameObject:
   - 65: {fileID: 6578100}
   m_Layer: 0
   m_Name: punisher
-  m_TagString: Skeleton
+  m_TagString: Punisher
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 123682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.41, y: 3.6, z: -0.3}
+  m_LocalPosition: {x: -8.339409, y: 3.31, z: -7.3}
   m_LocalScale: {x: 1.1359676, y: 1.0804192, z: 1.0804192}
   m_Children: []
   m_Father: {fileID: 0}

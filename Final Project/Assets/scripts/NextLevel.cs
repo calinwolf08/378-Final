@@ -17,6 +17,7 @@ public class NextLevel : MonoBehaviour {
 	}
 
     void OnCollisionEnter(Collision col) {
+        print("here");
         if (col.gameObject.CompareTag("Player")) {
             if (enemySpawner.GetComponent<BetaEnemySpawner>().getEnemiesLeft() <= 0) {
                 SceneManager.LoadScene("SecondFloor");

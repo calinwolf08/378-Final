@@ -50,22 +50,19 @@ public class punisher : MonoBehaviour {
     }
 
     void OnCollisionEnter(Collision col) {
-        if (col.gameObject.name == "Player") {
 
-        }
-
-        if (col.gameObject.name == "Fireball") {
+        if (col.gameObject.CompareTag("Fireball")) {
             anim.SetBool("death", true);
         }
 
-        if (col.gameObject.name == "Left Wall" || col.gameObject.name == "Right Wall") {
+        if (col.gameObject.CompareTag("Wall")) {
             speed *= -1;
         }
     }
 
     void OnTriggerEnter(Collider other) {
-        bool skipLR = other.gameObject.CompareTag("Left Wall") || other.gameObject.CompareTag("Right Wall");
-        bool skipBase = other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Back Wall");
+        bool skipLR = other.gameObject.CompareTag("Wall");
+        bool skipBase = other.gameObject.CompareTag("Ground");// || other.gameObject.CompareTag("Back Wall");
 
         if (other.gameObject.CompareTag("Player") && foundYou.Equals(Vector3.zero) && !hammerLoc) {
             StartCoroutine(waitOnNextLocation(other));
@@ -77,8 +74,8 @@ public class punisher : MonoBehaviour {
     }
 
     void OnTriggerExit(Collider other) {
-        bool skipLR = other.gameObject.CompareTag("Left Wall") || other.gameObject.CompareTag("Right Wall");
-        bool skipBase = other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Back Wall");
+        bool skipLR = other.gameObject.CompareTag("Wall");
+        bool skipBase = other.gameObject.CompareTag("Ground");// || other.gameObject.CompareTag("Back Wall");
 
         if (other.gameObject.CompareTag("Player") && foundYou.Equals(Vector3.zero) && !hammerLoc) {
             StartCoroutine(waitOnNextLocation(other));
@@ -94,8 +91,8 @@ public class punisher : MonoBehaviour {
     }
 
     void OnTriggerStay(Collider other) {
-        bool skipLR = other.gameObject.CompareTag("Left Wall") || other.gameObject.CompareTag("Right Wall");
-        bool skipBase = other.gameObject.CompareTag("Ground") || other.gameObject.CompareTag("Back Wall");
+        bool skipLR = other.gameObject.CompareTag("Wall");
+        bool skipBase = other.gameObject.CompareTag("Ground");// || other.gameObject.CompareTag("Back Wall");
 
         if (other.gameObject.CompareTag("Player") && foundYou.Equals(Vector3.zero) && !hammerLoc) {
             StartCoroutine(waitOnNextLocation(other));

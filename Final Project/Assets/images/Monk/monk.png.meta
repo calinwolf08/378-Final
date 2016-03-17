@@ -1,9 +1,14 @@
 fileFormatVersion: 2
 guid: 355fbec3519988849840580b12599436
-timeCreated: 1458171668
+timeCreated: 1458172483
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: monk_0
+    21300002: monk_1
+    21300004: monk_2
+    21300006: monk_3
+    21300008: monk_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -49,7 +54,103 @@ TextureImporter:
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
-    sprites: []
+    sprites:
+    - name: monk_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 28, y: 135}
+        - {x: -58, y: 135}
+        - {x: -61, y: 121}
+        - {x: -61, y: -32}
+        - {x: -39, y: -205}
+        - {x: 41, y: -205}
+        - {x: 47, y: -172}
+        - {x: 47, y: 80}
+    - name: monk_1
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 48.100006, y: -166}
+        - {x: 48.100006, y: 135}
+        - {x: -49.899994, y: 135}
+        - {x: -59.899994, y: 111}
+        - {x: -59.899994, y: -20}
+        - {x: -32.899994, y: -205}
+        - {x: -13.899994, y: -205}
+        - {x: -12.899994, y: -200}
+        - {x: 0.1000061, y: -205}
+        - {x: 20.100006, y: -205}
+    - name: monk_2
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -44.799988, y: 135}
+        - {x: -60.799988, y: 123}
+        - {x: -60.799988, y: -45}
+        - {x: -32.799988, y: -205}
+        - {x: 31.200012, y: -205}
+        - {x: 47.200012, y: -116}
+        - {x: 47.200012, y: 68}
+        - {x: 29.200012, y: 135}
+    - name: monk_3
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: 46.30005, y: 115}
+        - {x: 19.300049, y: 139}
+        - {x: -48.69995, y: 139}
+        - {x: -61.69995, y: 130}
+        - {x: -61.69995, y: -63}
+        - {x: -34.69995, y: -205}
+        - {x: 20.300049, y: -205}
+        - {x: 20.300049, y: -202}
+        - {x: 21.300049, y: -86}
+        - {x: 46.30005, y: -28}
+    - name: monk_4
+      rect:
+        serializedVersion: 2
+        x: 2048
+        y: 0
+        width: 512
+        height: 512
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -60.599976, y: 135}
+        - {x: -60.599976, y: -205}
+        - {x: 26.400024, y: -205}
+        - {x: 47.400024, y: -162}
+        - {x: 47.400024, y: 135}
     outline: []
   spritePackingTag: 
   userData: 
